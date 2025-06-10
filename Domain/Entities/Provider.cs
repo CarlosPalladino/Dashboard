@@ -1,6 +1,6 @@
 ﻿namespace Domain.Entities
 {
-    public class Client
+    public class Provider
     {
         public Guid Id { get; private set; }
 
@@ -8,16 +8,19 @@
 
         public int Cuit { get; private set; }
 
-        public int Adress { get; private set; }
+        public string Email { get; private set; }
 
-        protected Client() { }
 
-        public Client(Guid id, string name, int cuit, int adress)
+        protected Provider() { }
+
+
+        public Provider(Guid id, string name, int cuit, string email)
         {
             Id = id;
             Name = name;
             Cuit = cuit;
-            Adress = adress;
+            Email = email;
+
         }
     }
 }
