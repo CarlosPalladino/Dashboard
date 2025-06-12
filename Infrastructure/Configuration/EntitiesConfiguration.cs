@@ -15,6 +15,11 @@ namespace Infrastructure.Configuration
                 builder.Property(p => p.Name).HasColumnName("Name").HasMaxLength(100);
                 builder.Property(p => p.Cuit).HasColumnName("Cuit");
                 builder.Property(p => p.Email).HasColumnName("Email").HasMaxLength(100);
+
+                builder.HasMany(p => p.Transactions)
+                       .WithOne(t => t.Provider)
+                       .HasForeignKey(t => t.ProviderId)
+                       .OnDelete(DeleteBehavior.Restrict);
             }
         }
 
@@ -22,11 +27,11 @@ namespace Infrastructure.Configuration
         {
             public void Configure(EntityTypeBuilder<Client> builder)
             {
-                builder.HasKey(p => p.Id);
-                builder.Property(p => p.Id).HasColumnName("Id").ValueGeneratedOnAdd().IsRequired();
-                builder.Property(p => p.Name).HasColumnName("Name").HasMaxLength(100);
-                builder.Property(p => p.Cuit).HasColumnName("Cuit");
-                builder.Property(p => p.Adress).HasColumnName("Adress").HasMaxLength(100);
+                builder.HasKey(c => c.Id);
+                builder.Property(c => c.Id).HasColumnName("Id").ValueGeneratedOnAdd().IsRequired();
+                builder.Property(c => c.Name).HasColumnName("Name").HasMaxLength(100);
+                builder.Property(c => c.Cuit).HasColumnName("Cuit");
+                builder.Property(c => c.Adress).HasColumnName("Adress").HasMaxLength(100);
             }
         }
 
@@ -41,7 +46,23 @@ namespace Infrastructure.Configuration
                 builder.Property(t => t.ProviderId).HasColumnName("ProviderId").IsRequired();
                 builder.Property(t => t.ConciliacionId).HasColumnName("ConciliacionId").IsRequired();
                 builder.Property(t => t.Observation).HasColumnName("Observation").HasMaxLength(500);
-                builder.Property(t => t.EnumType).HasColumnName("EnumType").IsRequired();
+                builder.Property(t => t.TransactionType).HasColumnName("TransactionType").IsRequired();
+
+                builder.HasOne(t => t.Client)
+                       .WithMany(c => c.Transactions)
+                       .HasForeignKey(t => t.ClientId);
+
+                builder.HasOne(t => t.Provider)
+                       .WithMany(p => p.Transactions)
+                       .HasForeignKey(t => t.ProviderId);
+
+                builder.HasOne(t => t.Conciliation)
+                       .WithMany(c => c.Transactions)
+                       .HasForeignKey(t => t.ConciliacionId);
+
+                builder.HasMany(t => t.Details)
+                       .WithOne(d => d.Transaction)
+                       .HasForeignKey(d => d.TransactionId);
             }
         }
 
@@ -68,7 +89,7 @@ namespace Infrastructure.Configuration
                 builder.Property(td => td.ProductId).HasColumnName("ProductId").IsRequired();
                 builder.Property(td => td.Quantity).HasColumnName("Quantity").IsRequired();
                 builder.Property(td => td.Amount).HasColumnName("Amount").HasColumnType("decimal(18,2)").IsRequired();
-                builder.Property(td => td.Total).HasColumnName("Total").HasColumnType("int").IsRequired(); // corregido
+                builder.Property(td => td.Total).HasColumnName("Total").HasColumnType("decimal(18,2)").IsRequired();
             }
         }
 
@@ -85,8 +106,16 @@ namespace Infrastructure.Configuration
             }
         }
 
-     
-
+        public class Product_ProviderConfiguration : IEntityTypeConfiguration<Product_Provider>
+        {
+            public void Configure(EntityTypeBuilder<Product_Provider> builder)
+            {
+                builder.HasKey(pp => new { pp.ProductId, pp.ProviderId });
+                builder.Property(pp => pp.ProductId).HasColumnName("ProductId").IsRequired();
+                builder.Property(pp => pp.ProviderId).HasColumnName("ProviderId").IsRequired();
+                builder.Property(pp => pp.Amount).HasColumnName("Amount").HasColumnType("decimal(18,2)").IsRequired();
+            }
+        }
 
     }
 }

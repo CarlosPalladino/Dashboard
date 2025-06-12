@@ -10,17 +10,19 @@ namespace Infrastructure.Configurartion
             : base(options)
         {
         }
-        DbSet<Client> Clients { get; set; }
+        public DbSet<Client> Clients { get; set; }
 
-        DbSet<Conciliation> Conciliations { get; set; }
+        public DbSet<Conciliation> Conciliations { get; set; }
 
-        DbSet<Product> Products { get; set; }
+        public DbSet<Product> Products { get; set; }
 
-        DbSet<Provider> Providers { get; set; }
+        public DbSet<Provider> Providers { get; set; }
 
-        DbSet<Transaction> Transactions { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
 
-        DbSet<TransactionDetail> TransactionDetails { get; set; }
+        public DbSet<TransactionDetail> TransactionDetails { get; set; }
+
+        public DbSet<Product_Provider> Product_Providers { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -31,6 +33,7 @@ namespace Infrastructure.Configurartion
             modelBuilder.ApplyConfiguration(new EntitiesConfiguration.ProductConfiguration());
             modelBuilder.ApplyConfiguration(new EntitiesConfiguration.TransactionDetailConfiguration());
             modelBuilder.ApplyConfiguration(new EntitiesConfiguration.ConciliationConfiguration());
+            modelBuilder.ApplyConfiguration(new EntitiesConfiguration.Product_ProviderConfiguration());
         }
     }
 }
