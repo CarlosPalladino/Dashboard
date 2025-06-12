@@ -1,8 +1,7 @@
 ﻿using Domain.Entities;
-using Infrastructure.Configuration;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Configurartion
+namespace Infrastructure.Configuration
 {
     public class ApplicationDbContext : DbContext
     {
@@ -27,13 +26,7 @@ namespace Infrastructure.Configurartion
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new EntitiesConfiguration.ProviderConfiguration());
-            modelBuilder.ApplyConfiguration(new EntitiesConfiguration.ClientConfiguration());
-            modelBuilder.ApplyConfiguration(new EntitiesConfiguration.TransactionConfiguration());
-            modelBuilder.ApplyConfiguration(new EntitiesConfiguration.ProductConfiguration());
-            modelBuilder.ApplyConfiguration(new EntitiesConfiguration.TransactionDetailConfiguration());
-            modelBuilder.ApplyConfiguration(new EntitiesConfiguration.ConciliationConfiguration());
-            modelBuilder.ApplyConfiguration(new EntitiesConfiguration.Product_ProviderConfiguration());
+         
         }
     }
 }

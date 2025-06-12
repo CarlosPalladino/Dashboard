@@ -3,28 +3,19 @@
     public class Client
     {
         public Guid Id { get; private set; }
-
         public string Name { get; private set; }
-
         public long Cuit { get; private set; }
+        public string Address { get; private set; }
 
-        public string Adress { get; private set; }
-        public ICollection<Transaction> Transactions { get; private set; }
+        private Client() { } // Para Entity Framework
 
-        protected Client()
-        {
-            Transactions = new List<Transaction>();
-
-        }
-
-        public Client(Guid id, string name, long cuit, string adress)
+        public Client(Guid id, string name, long cuit, string address)
         {
             Id = id;
             Name = name;
             Cuit = cuit;
-            Adress = adress;
-            Transactions = new List<Transaction>();
-
+            Address = address;
         }
+
     }
 }

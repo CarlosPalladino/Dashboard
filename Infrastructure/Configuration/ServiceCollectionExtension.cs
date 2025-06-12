@@ -1,4 +1,5 @@
 ﻿using Infrastructure.Configurartion;
+using Infrastructure.Configuration;
 using Microsoft.EntityFrameworkCore;
 
 public static class ServiceCollectionExtension

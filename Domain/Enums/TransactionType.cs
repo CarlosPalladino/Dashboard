@@ -3,6 +3,6 @@
     public enum TransactionType
     {
         Venta = 1,
-        Compra = 2
+        Compra = 2,
     }
 }
