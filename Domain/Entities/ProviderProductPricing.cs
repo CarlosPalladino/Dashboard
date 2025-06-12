@@ -8,7 +8,7 @@
         public decimal Amount { get; private set; }
         public DateTime ValidFrom { get; private set; }
 
-        private ProviderProductPricing() { } // Para Entity Framework
+        private ProviderProductPricing() { }
 
         public ProviderProductPricing(Guid id, Guid providerId, Guid productId, decimal amount, DateTime validFrom)
         {

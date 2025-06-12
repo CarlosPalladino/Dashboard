@@ -7,7 +7,7 @@
         public long Cuit { get; private set; }
         public string Address { get; private set; }
 
-        private Client() { } // Para Entity Framework
+        private Client() { } 
 
         public Client(Guid id, string name, long cuit, string address)
         {

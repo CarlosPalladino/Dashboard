@@ -7,7 +7,7 @@
     public decimal Amount { get; private set; }
     public decimal Total { get; private set; }
 
-    private TransactionDetail() { } // Para Entity Framework
+    private TransactionDetail() { } 
 
     public TransactionDetail(Guid id, Guid transactionId, Guid productId, int quantity, decimal amount, decimal total)
     {

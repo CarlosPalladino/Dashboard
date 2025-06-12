@@ -21,12 +21,11 @@ namespace Infrastructure.Configuration
 
         public DbSet<TransactionDetail> TransactionDetails { get; set; }
 
-        public DbSet<Product_Provider> Product_Providers { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-         
+
         }
     }
 }

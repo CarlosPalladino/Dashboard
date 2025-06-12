@@ -59,16 +59,5 @@ namespace Infrastructure.Configuration
             }
         }
 
-
-        public class Product_ProviderConfiguration : IEntityTypeConfiguration<Product_Provider>
-        {
-            public void Configure(EntityTypeBuilder<Product_Provider> builder)
-            {
-
-
-
-            }
-        }
-
     }
 }
