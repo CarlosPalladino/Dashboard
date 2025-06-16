@@ -1,6 +1,6 @@
-﻿using static Apllication.Records.ProductRecords;
+﻿using static Apllication.Records.ProductRecord;
 
-namespace Apllication.Interfaces
+namespace Apllication.Interfaces.Services
 {
     public interface IProducService
     {

@@ -17,5 +17,16 @@
             Address = address;
         }
 
+        public void GetClientByname(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("Name cannot be null or empty.", nameof(name));
+            }
+            Name = name;
+        }
+
+
+
     }
 }

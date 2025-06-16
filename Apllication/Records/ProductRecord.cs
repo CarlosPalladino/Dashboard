@@ -1,6 +1,6 @@
 ﻿namespace Apllication.Records
 {
-    public class ProductRecords
+    public class ProductRecord
     {
         public record ProductSummary(int TotalProducts, decimal TotalRevenue, List<TopProduct> TopProducts);
 
