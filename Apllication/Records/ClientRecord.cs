@@ -2,5 +2,4 @@
 {
     public record ClientRecordInfo(string name, string addres);
 
-
 }
