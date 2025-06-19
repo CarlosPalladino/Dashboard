@@ -1,5 +1,7 @@
 ﻿using Apllication.Interfaces.Services;
+using Apllication.Records;
 using Microsoft.AspNetCore.Mvc;
+
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -34,17 +36,25 @@ namespace WepApi.Controllers
             return "value";
         }
 
-        // POST api/<ClientController>
+
+        /// <summary>
+        /// Endpoint to manage new client 
+        /// </summary>
+        /// <param name="record"></param>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> NewClient([FromBody] NewClientRecord newclient)
         {
+            var newClient = await _repo.CreateClientAsync(newclient);
+
+            return Ok("the client was created successfully");
         }
 
         // PUT api/<ClientController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+        //[HttpPut("{id}")]
+        //public void Put(int id, [FromBody] )
+        //{
+        //    return 
+        //}
 
         // DELETE api/<ClientController>/5
         [HttpDelete("{id}")]

@@ -1,6 +1,6 @@
 ﻿namespace Domain.Entities
 {
-    public class Client
+    public class Client : Entity<Guid>
     {
         public Guid Id { get; private set; }
         public string Name { get; private set; }
@@ -15,18 +15,13 @@
             Name = name;
             Cuit = cuit;
             Address = address;
+            AddDomainEvent(new CreatedEvent(Id));
         }
 
-        public void GetClientByname(string name)
+        public static Client Create(Guid id, string name, long cuit, string address)
         {
-            if (string.IsNullOrEmpty(name))
-            {
-                throw new ArgumentException("Name cannot be null or empty.", nameof(name));
-            }
-            Name = name;
+            return new Client(id, name, cuit, address);
         }
-
-
 
     }
 }

@@ -5,5 +5,6 @@ namespace Apllication.Interfaces.Repository
     public interface IClientRepository
     {
         Task<List<Client>> GetAllClientsAsync();
+        Task AddAsync(Client client);
     }
 }

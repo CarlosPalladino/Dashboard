@@ -14,6 +14,12 @@ namespace Infrastructure.Services.Repository
             _context = context;
         }
 
+        public async Task AddAsync(Client client)
+        {
+            await _context.Clients.AddAsync(client);
+            await _context.SaveChangesAsync();
+        }
+
         public Task<List<Client>> GetAllClientsAsync()
         {
             var client = _context.Clients.ToListAsync();
