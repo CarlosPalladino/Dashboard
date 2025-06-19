@@ -1,6 +1,5 @@
 ﻿public class Product
 {
-
     public Guid Id { get; private set; }
     public string Name { get; private set; }
     public decimal ReferenceAmount { get; private set; }
@@ -17,4 +16,5 @@
         Stock = stock;
         Active = active;
     }
+
 }

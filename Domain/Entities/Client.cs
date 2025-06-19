@@ -23,5 +23,10 @@
             return new Client(id, name, cuit, address);
         }
 
+        public static Client Update(string name, string address)
+        {
+            return Client.Update(name, address);
+        }
+
     }
 }

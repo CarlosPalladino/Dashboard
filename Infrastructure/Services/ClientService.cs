@@ -31,12 +31,11 @@ namespace Infrastructure.Services
                 throw new Exception($"there are no clients registered yet");
             return client.Select(c => new ClientRecordInfo(c.Name, c.Address)).ToList();
 
-
         }
-
-        public Task<ClientRecordInfo> GetClientByNameAsync(string name)
+        public async Task<IEnumerable<ClientRecordInfo>> GetClientInformation(string name)
         {
-            throw new NotImplementedException();
+            var clientByName = await _repo.GetClientInformation(name);
+            return clientByName;
         }
     }
 }

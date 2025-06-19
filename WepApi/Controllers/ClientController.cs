@@ -2,9 +2,6 @@
 using Apllication.Records;
 using Microsoft.AspNetCore.Mvc;
 
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace WepApi.Controllers
 {
     [Route("api/[controller]")]
@@ -29,14 +26,15 @@ namespace WepApi.Controllers
             return allClient.Any() ? Ok(allClient) : NotFound();
         }
 
-        // GET api/<ClientController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        /// <summary>
+        /// Return Client's information
+        /// </summary>        
+        [HttpGet("{name}")]
+        public async Task<IActionResult> GetclientByName(string name)
         {
-            return "value";
+            var client = await _repo.GetClientInformation(name);
+            return Ok(client);
         }
-
-
         /// <summary>
         /// Endpoint to manage new client 
         /// </summary>
