@@ -47,17 +47,16 @@ namespace WepApi.Controllers
             return Ok("the client was created successfully");
         }
 
-        // PUT api/<ClientController>/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] )
-        //{
-        //    return 
-        //}
+        /// <summary>
+        /// logic Delete
+        /// </summary>
 
-        // DELETE api/<ClientController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete()]
+        //ProducesResposnse
+        public async Task<IActionResult> Delete(string name)
         {
+            await _repo.ChangeClientState(name);
+            return Ok("The client was deleted success");
         }
     }
 }

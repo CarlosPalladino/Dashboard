@@ -23,17 +23,39 @@ namespace Infrastructure.Services.Repository
 
         public async Task<List<Client>> GetAllClientsAsync()
         {
-            var client = await _context.Clients.ToListAsync();
+            var client = await _context.Clients
+                .ToListAsync();
             return client;
+        }
+
+        public async Task<Client?> GetByNameAsync(string name)
+        {
+            var findClient = await _context.Clients
+                            .Where(c => c.Name.Equals(name))
+                            .FirstOrDefaultAsync();
+            return findClient;
         }
 
         public async Task<IEnumerable<ClientRecordInfo>> GetClientInformation(string name)
         {
             var clientByName = await _context.Clients
                 .Where(c => c.Name.Equals(name) || c.Name.Contains(name))
-                .Select(c => new ClientRecordInfo(c.Name, c.Address))
+                .Select(c => new ClientRecordInfo(c.Name, c.Address, c.Active))
                  .ToListAsync();
-               return clientByName;
+            return clientByName;
+        }
+        public async Task<bool> IsActive(string name)
+        {
+            var isAcive = await _context.Clients
+                .Where(c => c.Name.Equals(name))
+                .FirstOrDefaultAsync();
+            return isAcive?.Active ?? false;
+        }
+
+        public async Task UpdateAsync(Client client)
+        {
+            _context.Update(client);
+            await _context.SaveChangesAsync();
         }
     }
 }

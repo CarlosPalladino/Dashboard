@@ -7,5 +7,7 @@ namespace Apllication.Interfaces.Services
         Task<List<ClientRecordInfo>> GetAllClientsAsync();
         Task<IEnumerable<ClientRecordInfo>> GetClientInformation(string name);
         Task<Guid> CreateClientAsync(NewClientRecord newClient);
+        Task ChangeClientState(string name);
+
     }
 }

@@ -32,13 +32,22 @@ namespace Infrastructure.Configuration
                 builder.Property(c => c.Name).HasMaxLength(100).IsRequired();
                 builder.Property(c => c.Cuit).IsRequired();
                 builder.Property(c => c.Address).HasMaxLength(200);
-
+                builder.Property(c => c.Active).HasDefaultValue(true);
                 builder.HasData(new Client(
                     new Guid("3F2504E0-4F89-41D3-9A0C-0305E82C3301"),
+                    "Juan Pérez EDITADO",
+                     20456789012,
+                     "Av. Siempre Viva 123",
+                      active: false
+                         ));
+                builder.HasData(new Client(
+                    new Guid("ee1560cf-efb0-458a-a3d8-e4dd16958461"),
                     "Juan Pérez",
-                    20456789012,
-                    "Av. Siempre Viva 123"
-                ));
+                     20456789012,
+                     "Av. Siempre Viva 321",
+                      active: false
+                         ));
+
             }
         }
 
@@ -139,5 +148,39 @@ namespace Infrastructure.Configuration
                 ));
             }
         }
+
+        public class ProviderProductPricingConfiguration : IEntityTypeConfiguration<ProviderProductPricing>
+        {
+            public void Configure(EntityTypeBuilder<ProviderProductPricing> builder)
+            {
+                builder.HasKey(p => p.Id);
+
+                builder.Property(p => p.Amount)
+                       .HasPrecision(18, 4)
+                       .IsRequired();
+
+                builder.Property(p => p.ValidFrom)
+                       .IsRequired();
+
+                builder.HasOne<Provider>()
+                       .WithMany()
+                       .HasForeignKey(p => p.ProviderId)
+                       .OnDelete(DeleteBehavior.Restrict);
+
+                builder.HasOne<Product>()
+                       .WithMany()
+                       .HasForeignKey(p => p.ProductId)
+                       .OnDelete(DeleteBehavior.Restrict);
+
+                builder.HasData(new ProviderProductPricing(
+                    new Guid("E1B9A9DD-7B52-4A88-9A7F-123456789ABC"),
+                    new Guid("6E1A72D3-5D4A-4F74-A8F0-521C45C8AC78"),
+                    new Guid("B234C2F0-721A-46F6-9F23-4D87C1B207C1"),
+                    1234.5678m,
+                    DateTime.UtcNow.Date
+                ));
+            }
+        }
+
     }
 }

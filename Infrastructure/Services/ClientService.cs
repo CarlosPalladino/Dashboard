@@ -17,9 +17,21 @@ namespace Infrastructure.Services
         public async Task<Guid> CreateClientAsync(NewClientRecord newclient)
         {
             var id = Guid.NewGuid();
-            var client = Client.Create(id, newclient.name, newclient.cuit, newclient.address);
+            var client = Client.Create(id, newclient.name, newclient.cuit, newclient.address, newclient.active);
             await _repo.AddAsync(client);
             return client.Id;
+        }
+
+        public async Task ChangeClientState(string name)
+        {
+            var client = await _repo.GetByNameAsync(name);
+
+            if (client.Active)
+                client.Desactivate();
+            //else
+            //    client.ReActivate();
+
+            await _repo.UpdateAsync(client);
         }
 
         public async Task<List<ClientRecordInfo>> GetAllClientsAsync()
@@ -29,7 +41,7 @@ namespace Infrastructure.Services
             if (client is null)
 
                 throw new Exception($"there are no clients registered yet");
-            return client.Select(c => new ClientRecordInfo(c.Name, c.Address)).ToList();
+            return client.Select(c => new ClientRecordInfo(c.Name, c.Address, c.Active)).ToList();
 
         }
         public async Task<IEnumerable<ClientRecordInfo>> GetClientInformation(string name)

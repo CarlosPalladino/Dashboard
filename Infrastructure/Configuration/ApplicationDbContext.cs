@@ -49,6 +49,8 @@ namespace Infrastructure.Configuration
             modelBuilder.ApplyConfiguration(new EntitiesConfiguration.ConciliationConfiguration());
             modelBuilder.ApplyConfiguration(new EntitiesConfiguration.TransactionConfiguration());
             modelBuilder.ApplyConfiguration(new EntitiesConfiguration.TransactionDetailConfiguration());
+            modelBuilder.ApplyConfiguration(new EntitiesConfiguration.ProviderProductPricingConfiguration());
+
             modelBuilder.Ignore<DomainEvent>();
         }
     }
