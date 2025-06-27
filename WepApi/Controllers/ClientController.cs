@@ -17,8 +17,8 @@ namespace WepApi.Controllers
         /// <summary>
         /// Return Clients's information
         /// </summary>
-
-        [HttpGet("clients")]
+        /// <returns>Return a list of clients</returns>
+        [HttpGet]
         public async Task<IActionResult> AllClient()
         {
             var allClient = await _repo.GetAllClientsAsync();
