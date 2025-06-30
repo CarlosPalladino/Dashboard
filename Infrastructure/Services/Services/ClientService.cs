@@ -28,9 +28,8 @@ namespace Infrastructure.Services
 
             if (client.Active)
                 client.Desactivate();
-            //else
-            //    client.ReActivate();
-
+            else
+                client.ReActivate();
             await _repo.UpdateAsync(client);
         }
 

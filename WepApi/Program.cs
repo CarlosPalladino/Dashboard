@@ -1,14 +1,15 @@
+using Apllication.Interfaces.Repository;
 using Apllication.Interfaces.Services;
 using Infrastructure.Configuration;
 using Infrastructure.Services;
+using Infrastructure.Services.Repository;
+using Infrastructure.Services.Services;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -19,10 +20,11 @@ builder.Services.AddSwaggerGen(c =>
 );
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddScoped<IClientInterface, ClientService>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IProductInterface, ProductService>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
