@@ -23,6 +23,8 @@ builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddScoped<IClientInterface, ClientService>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductInterface, ProductService>();
+builder.Services.AddScoped<IProviderInterface, ProviderService>();
+builder.Services.AddScoped<IProviderRepository, ProviderRepository>();
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -30,7 +32,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-    
+
 app.UseHttpsRedirection();
 app.UseMiddleware<CustomMiddlewares>();
 app.UseRouting();
