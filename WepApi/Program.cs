@@ -5,6 +5,7 @@ using Infrastructure.Services;
 using Infrastructure.Services.Repository;
 using Infrastructure.Services.Services;
 using System.Reflection;
+using WepApi.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,7 +23,6 @@ builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddScoped<IClientInterface, ClientService>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductInterface, ProductService>();
-
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -30,9 +30,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+    
 app.UseHttpsRedirection();
-
+app.UseMiddleware<CustomMiddlewares>();
+app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllers();

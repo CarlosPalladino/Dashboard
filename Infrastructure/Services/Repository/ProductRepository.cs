@@ -23,13 +23,15 @@ namespace Infrastructure.Services.Repository
         public async Task<Product> ProductDetail(string name)
         {
             var productDetail = await _context.Products
-                                        .Where(p => p.Name.Equals(name))
+                                        .Where(p => p.Name.Equals(name) || p.Name.Contains(name))
                                         .FirstOrDefaultAsync();
             return productDetail;
         }
         public async Task<List<Product>> ProductList()
         {
-            return await _context.Products.ToListAsync();
+            return await _context.Products
+                .Where(p => p.Active)
+                .ToListAsync();
         }
         public async Task ProductUpdate(Product product)
         {

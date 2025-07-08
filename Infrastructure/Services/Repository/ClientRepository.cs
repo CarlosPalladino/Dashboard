@@ -24,6 +24,7 @@ namespace Infrastructure.Services.Repository
         public async Task<List<Client>> GetAllClientsAsync()
         {
             var client = await _context.Clients
+                .Where(c => c.Active)
                 .ToListAsync();
             return client;
         }

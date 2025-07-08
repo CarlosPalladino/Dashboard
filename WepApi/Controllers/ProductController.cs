@@ -45,7 +45,7 @@ namespace WepApi.Controllers
         {
             await _repo.ChangeState(name);
 
-            return Ok("the product was deleted succesfully");
+            return Ok($"the status of product:{name} has been changed succesfully");
         }
     }
 }
