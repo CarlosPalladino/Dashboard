@@ -1,11 +1,42 @@
-﻿
-namespace WepApi.Middlewares
+﻿namespace WepApi.Middlewares
 {
-    public class CustomMiddlewares 
+    public class CustomMiddlewares
     {
-        //public Task InvokeAsync(HttpContext context, RequestDelegate next)
-        //{
+        private readonly RequestDelegate _next;
+        private readonly ILogger<CustomMiddlewares> _logger;
 
-        //}
+
+
+        public CustomMiddlewares(RequestDelegate next, ILogger<CustomMiddlewares> logger)
+        {
+            _next = next;
+            _logger = logger;
+        }
+
+        public async Task InvokeAsync(HttpContext context)
+        {
+            try
+            {
+
+                await _next(context);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                await context.Response.WriteAsJsonAsync(new { error = "No autorizado" });
+            }
+            catch (BadHttpRequestException badRequest)
+            {
+                context.Response.StatusCode = StatusCodes.Status400BadRequest;
+                await context.Response.WriteAsJsonAsync(new { error = badRequest.Message });
+            }
+
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error inesperado");
+                context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+                await context.Response.WriteAsJsonAsync(new { error = "Error interno del servidor" });
+            }
+        }
     }
 }
