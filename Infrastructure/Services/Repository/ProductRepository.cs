@@ -20,7 +20,7 @@ namespace Infrastructure.Services.Repository
 
             return isActive?.Active ?? false;
         }
-        public async Task<Product> ProductDetail(string name)
+        public async Task<Product?> ProductDetail(string name)
         {
             var productDetail = await _context.Products
                                         .Where(p => p.Name.Equals(name) || p.Name.Contains(name))

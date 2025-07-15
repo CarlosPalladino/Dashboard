@@ -21,7 +21,7 @@ namespace Infrastructure.Services.Services
 
         public async Task<ProviderInformation> ProviderInformation(string name)
         {
-            if (string.IsNullOrWhiteSpace(name))
+            if (string.IsNullOrEmpty(name))
                 throw new BadHttpRequestException("El nombre no puede estar vacío.");
             var provider = await _service.GetProviderInformation(name);
             if (provider is null)
